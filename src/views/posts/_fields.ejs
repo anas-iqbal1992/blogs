@@ -1,0 +1,27 @@
+<% if(formData.image){ %>
+    <img src="/uploads/<%- formData.image %>" class="rounded file-upload" id="pre_image" width="200">
+    <% }else{ %>
+        <img src="/images/upload-icon.png" class="rounded file-upload" id="pre_image" width="200">
+        <% } %>
+            <input accept="image/*" type="file" class="visuallyhidden" name="image" id='image'>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input value="<%= formData.title %>" type="text" name="title" id="title"
+                    class="form-control <%= formErrors.title ? 'is-invalid' :'' %>">
+                <% if(formErrors.title){ %>
+                    <div class="invalid-feedback">
+                        <%- formErrors.title.msg %>
+                    </div>
+                    <% } %>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea style="height: auto;" name="description" id="description" rows="6"
+                    class="form-control <%= formErrors.description ? 'is-invalid' :'' %>"><%= formData.description %></textarea>
+                <% if(formErrors.description){ %>
+                    <div class="invalid-feedback">
+                        <%- formErrors.description.msg %>
+                    </div>
+                    <% } %>
+            </div>
+            <button type="submit" class="btn btn-info">Submit</button>

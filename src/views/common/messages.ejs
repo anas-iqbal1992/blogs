@@ -1,0 +1,5 @@
+<% if (Object.keys(messages).length !== 0) { %>
+<div class="alert alert-<%= messages.type === 'success' ? 'success' : 'danger' %>" role="alert">
+      <%= messages.body %>
+</div>
+<% } %>

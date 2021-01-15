@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <a href="/posts/add-post" class="btn btn-primary pull-right">Add Post</a>
+            </div>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <% model.docs.forEach(data=> { %>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <img class="img-fluid" src="/uploads/<%- data.image %>" />
+                                </div>
+                                <div class="col-lg-8">
+                                    <h4 class="card-title">
+                                        <%- data.title%>
+                                    </h4>
+                                    <p class="card-text">
+                                        <%= data.description.substring(0, 250)+'...' %>
+                                    </p>
+                                    <p>
+                                        <%- dateFormat(data.createdAt) -%>
+                                    </p>
+                                </div>
+                                <div class="col-lg-1">
+                                    <a class="btn btn-info" href="/posts/view/<%- data.slug %>">View</a>
+                                    <a class="btn btn-warning" href="/posts/edit/<%- data._id %>">Edit</a>
+                                    <form action="/posts/remove/<%= data._id %>" method="POST"
+                                        class="d-inline">
+                                        <button onclick="return confirm('Are you sure to delete?')" type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+                        <% if (model.totalPages> 1) { %>
+                            <nav class="pull-right">
+                                <ul class="pagination">
+                                    <% if (model.hasPrevPage) { %>
+                                        <li class="page-item">
+                                            <a href="/posts/<%= model.prevPage %>" class="page-link">Previous</a>
+                                        </li>
+                                        <% } else { %>
+                                            <li class="page-item disabled">
+                                                <span class="page-link">Previous</span>
+                                            </li>
+                                            <% } %>
+                                                <% var j=(Number(model.page)> 5 ? Number(model.page) - 4 : 1) %>
+                                                    <% if (j !==1) { %>
+                                                        <li class="page-item disabled"><a class="page-link"
+                                                                href="#">...</a>
+                                                        </li>
+                                                        <% } %>
+                                                            <% for (; j <=(Number(model.page) + 4) && j
+                                                                <=model.totalPages; j++) { %>
+                                                                <% if (j==model.page) { %>
+                                                                    <li class="page-item active">
+                                                                        <span class="page-link">
+                                                                            <%= j %>
+                                                                                <span class="sr-only"></span>
+                                                                        </span>
+                                                                    </li>
+                                                                    <% } else { %>
+                                                                        <li class="page-item">
+                                                                            <a class="page-link"
+                                                                                href="/posts/<%= j %>">
+                                                                                <%= j %>
+                                                                            </a>
+                                                                        </li>
+                                                                        <% } %>
+                                                                            <% if (j==Number(model.page) + 4 && j <
+                                                                                model.totalPages) { %>
+                                                                                <li class="disabled"><a>...</a></li>
+                                                                                <% } %>
+                                                                                    <% } %>
+
+                                                                                        <% if (model.hasNextPage) { %>
+                                                                                            <li class="page-item">
+                                                                                                <a href="/posts/<%= model.nextPage %>"
+                                                                                                    class="page-link">Next</a>
+                                                                                            </li>
+                                                                                            <% } else { %>
+                                                                                                <li
+                                                                                                    class="page-item disabled">
+                                                                                                    <span
+                                                                                                        class="page-link">Next</span>
+                                                                                                </li>
+                                                                                                <% } %>
+                                </ul>
+                            </nav>
+                            <% } %>
+            </div>
+        </div>
+    </div>
+</div>
