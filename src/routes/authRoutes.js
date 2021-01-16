@@ -13,6 +13,7 @@ const {
 authRoutes.get("/", checkLogin, async (req, res) => {
   return res.render("auth/login", { layout: 'layouts/login' });
 });
+
 authRoutes.post(
   "/login", checkLogin, validateSchema,
   async (req, res, next) => {

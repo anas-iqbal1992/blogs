@@ -62,6 +62,7 @@ regRoute.get(
         return res.redirect("/post");
     }
 );
+
 regRoute.post("/registration/update", requiredLogin, validateUpdateSchema, async (req, res) => {
     try {
         const errors = validationResult(req);
