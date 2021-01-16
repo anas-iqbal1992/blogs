@@ -11,7 +11,7 @@ const {
   validateEmail, genrateToken, validateToken,updatePassword
 } = require("./../modules/users/services/createService");
 authRoutes.get("/", checkLogin, async (req, res) => {
-  res.render("auth/login", { layout: 'layouts/login' });
+  return res.render("auth/login", { layout: 'layouts/login' });
 });
 authRoutes.post(
   "/login", checkLogin, validateSchema,
@@ -63,7 +63,7 @@ authRoutes.get('/logout', requiredLogin, (req, res) => {
   return res.redirect('/')
 })
 authRoutes.get('/forget-password', checkLogin, (req, res) => {
-  res.render('auth/forget-password', { layout: 'layouts/login' });
+  return res.render('auth/forget-password', { layout: 'layouts/login' });
 });
 authRoutes.post('/forget-password', checkLogin, forgetpassvalidateSchema, async (req, res) => {
   try {

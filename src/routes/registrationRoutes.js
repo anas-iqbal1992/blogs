@@ -15,7 +15,7 @@ regRoute.get(
     "/registration",
     checkLogin,
     async (req, res) => {
-        res.render("registration/create", { title: "Sign Up", layout: 'layouts/login' });
+        return res.render("registration/create", { title: "Sign Up", layout: 'layouts/login' });
     }
 );
 regRoute.post("/registration", checkLogin, validateSchema, async (req, res) => {
@@ -51,7 +51,7 @@ regRoute.get(
     async (req, res) => {
         try {
             const formData = await getUser(req);
-            res.render("registration/update", { title: "Profile", formData });
+            return res.render("registration/update", { title: "Profile", formData });
         } catch (e) {
             const msg = {
                 type: "error",
